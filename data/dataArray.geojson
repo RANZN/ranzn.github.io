@@ -1,4 +1,4 @@
- {"data":[
+[
 
             {"nameOfItem":"Half & Half Pizzas","nameOfItem1":"Veg - Non-Veg Half Half","descriptionOfItem":"Cant't make up your mind? No worries get 2 different haves in one big 10-inch pizza","descriptionOfItem1":"The fight ends today! Get your own half now. pick a half each of any 2  & make 1 big 10 inch pizza","posterImage":"https://user-images.githubusercontent.com/40376163/135238680-d8c3f1c7-6217-4bd5-9fe0-1bbb03f27a62.jpg","price":"₹410","type":"veg","group":"big"},
             {"nameOfItem":"Half & Half Pizzas","nameOfItem1":"Veg - Non-Veg Half Half","descriptionOfItem":"Cant't make up your mind? No worries get 2 different haves in one big 10-inch pizza","descriptionOfItem1":"The fight ends today! Get your own half now. pick a half each of any 2  & make 1 big 10 inch pizza","posterImage":"https://user-images.githubusercontent.com/40376163/135238683-5e9f006f-5502-4f17-8901-86f647cf1464.jpg","price":"₹300","type":"veg","group":"big"},
@@ -70,4 +70,5 @@
             {"nameOfItem":"Half & Half Pizzas","nameOfItem1":"Veg - Non-Veg Half Half","descriptionOfItem":"Cant't make up your mind? No worries get 2 different haves in one big 10-inch pizza","descriptionOfItem1":"The fight ends today! Get your own half now. pick a half each of any 2  & make 1 big 10 inch pizza","posterImage":"https://i.ibb.co/cbCZ6W2/c7.jpg","price":"₹540","type":"non-veg","group":"combo"},
 
         ]
-    }
+
+    
