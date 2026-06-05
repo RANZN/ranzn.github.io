@@ -22,6 +22,7 @@ import com.ranjan.myportfolio.presentation.components.sections.*
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 
 @Composable
 fun MainContent(
@@ -36,6 +37,7 @@ fun MainContent(
     val scrollState = rememberLazyListState()
     var isAutoScrolling by remember { mutableStateOf(false) }
     LaunchedEffect(selectedSection()) {
+        if (scrollState.isScrollInProgress) return@LaunchedEffect
         val index = navigationSections.indexOfFirst { it == selectedSection() }
         if (index >= 0) {
             isAutoScrolling = true
@@ -48,9 +50,7 @@ fun MainContent(
         snapshotFlow { scrollState.firstVisibleItemIndex }
             .distinctUntilChanged()
             .collect { index ->
-                if (!isAutoScrolling) {
-                    navigationSections.getOrNull(index)?.let(onSectionSelected)
-                }
+                if (!isAutoScrolling) navigationSections.getOrNull(index)?.let(onSectionSelected)
             }
     }
 
@@ -105,7 +105,7 @@ fun MainContent(
             )
         }
 
-        item(NavigationSection.CONTACT) {
+        stickyHeader(NavigationSection.CONTACT) {
             ContactSection(
                 contactInfo = portfolioState.contactInfo,
                 onClick = onClick,
