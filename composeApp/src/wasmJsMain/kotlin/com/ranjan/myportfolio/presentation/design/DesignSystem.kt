@@ -1,7 +1,6 @@
-package com.ranjan.myportfolio.presentation.ui.design
+package com.ranjan.myportfolio.presentation.design
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.unit.dp
 
 /**

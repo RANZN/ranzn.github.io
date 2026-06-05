@@ -14,7 +14,7 @@ import compose.icons.feathericons.*
 import compose.icons.simpleicons.*
 import com.ranjan.myportfolio.data.models.ContactInfo
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun ContactSection(

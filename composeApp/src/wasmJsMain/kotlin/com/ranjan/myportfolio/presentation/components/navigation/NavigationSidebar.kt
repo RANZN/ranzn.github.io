@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,7 +37,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.data.models.Profile
 import compose.icons.FeatherIcons
@@ -51,7 +50,7 @@ import org.jetbrains.compose.resources.painterResource
 fun NavigationSidebar(
     profile: Profile,
     navigationSections: List<NavigationSection>,
-    selectedSection: NavigationSection,
+    selectedSection: () -> NavigationSection,
     onSectionSelected: (NavigationSection) -> Unit,
     isCollapsed: Boolean,
     onToggleCollapse: () -> Unit,
@@ -158,7 +157,7 @@ fun NavigationSidebar(
                 navigationSections.forEach { section ->
                     NavigationItem(
                         section = section,
-                        isSelected = selectedSection == section,
+                        isSelected = selectedSection() == section,
                         onClick = { onSectionSelected(section) },
                         isCollapsed = isCollapsed
                     )

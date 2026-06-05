@@ -40,6 +40,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.kotlinx.collections.immutable)
 
             implementation(libs.composeicons.feather)
             implementation(libs.composeicons.simple.icons)

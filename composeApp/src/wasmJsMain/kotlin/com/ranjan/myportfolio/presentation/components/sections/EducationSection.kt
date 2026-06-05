@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import com.ranjan.myportfolio.data.models.Education
 import com.ranjan.myportfolio.presentation.components.cards.EducationCard
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun EducationSection(education: List<Education>, isLargeScreen: Boolean) {

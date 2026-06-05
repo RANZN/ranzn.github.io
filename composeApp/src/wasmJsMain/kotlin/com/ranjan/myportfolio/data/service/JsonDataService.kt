@@ -28,15 +28,17 @@ class JsonDataServiceImpl : JsonDataService {
 
     private var cachedData: PortfolioJsonData? = null
 
+    val json = Json{
+        ignoreUnknownKeys = true
+    }
+
     @OptIn(ExperimentalResourceApi::class, InternalResourceApi::class)
     override suspend fun loadPortfolioData(): PortfolioJsonData {
         cachedData?.let { return it }
 
         val jsonText = readResourceBytes("portfolio-data.json").decodeToString()
 
-        val parsedData = Json {
-            ignoreUnknownKeys = true
-        }.decodeFromString<PortfolioJsonData>(jsonText)
+        val parsedData = json.decodeFromString<PortfolioJsonData>(jsonText)
 
         cachedData = parsedData
         return parsedData

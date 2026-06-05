@@ -2,21 +2,27 @@ package com.ranjan.myportfolio
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ranjan.myportfolio.presentation.viewmodel.PortfolioViewModel
-import com.ranjan.myportfolio.presentation.components.navigation.*
-import com.ranjan.myportfolio.presentation.events.UiEvent
-import com.ranjan.myportfolio.presentation.screens.*
-import com.ranjan.myportfolio.presentation.ui.theme.PortfolioDarkColorScheme
-import com.ranjan.myportfolio.presentation.ui.theme.PortfolioLightColorScheme
-import com.ranjan.myportfolio.presentation.ui.components.AnimatedBackground
-import com.ranjan.myportfolio.presentation.intent.PortfolioIntent
-import org.koin.compose.viewmodel.koinViewModel
+import com.ranjan.myportfolio.presentation.components.AnimatedBackground
+import com.ranjan.myportfolio.presentation.components.ErrorScreen
+import com.ranjan.myportfolio.presentation.components.LoadingScreen
+import com.ranjan.myportfolio.presentation.components.navigation.NavigationSidebar
+import com.ranjan.myportfolio.presentation.components.navigation.TopNavigationBar
+import com.ranjan.myportfolio.presentation.theme.PortfolioDarkColorScheme
+import com.ranjan.myportfolio.presentation.theme.PortfolioLightColorScheme
+import com.ranjan.myportfolio.presentation.ui.MainContent
+import com.ranjan.myportfolio.presentation.ui.PortfolioIntent
+import com.ranjan.myportfolio.presentation.ui.PortfolioViewModel
+import com.ranjan.myportfolio.presentation.ui.UiEvent
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun App() {
@@ -56,7 +62,7 @@ fun App() {
             AnimatedBackground(
                 modifier = Modifier.fillMaxSize()
             )
-            
+
             val isLargeScreen = maxWidth > 1200.dp
             val isMediumScreen = maxWidth > 800.dp
 
@@ -79,7 +85,7 @@ fun App() {
                             NavigationSidebar(
                                 profile = portfolioState.profile,
                                 navigationSections = uiState.navigationSections,
-                                selectedSection = uiState.selectedSection,
+                                selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
                                 isCollapsed = uiState.isNavigationCollapsed,
                                 onToggleCollapse = {
@@ -92,7 +98,8 @@ fun App() {
 
                             MainContent(
                                 portfolioState = portfolioState,
-                                selectedSection = uiState.selectedSection,
+                                navigationSections = uiState.navigationSections,
+                                selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
                                 onClick = { viewModel.onClick(it) },
                                 modifier = Modifier.weight(1f),
@@ -103,7 +110,7 @@ fun App() {
                         Column(modifier = Modifier.fillMaxSize()) {
                             TopNavigationBar(
                                 navigationSections = uiState.navigationSections,
-                                selectedSection = uiState.selectedSection,
+                                selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
                                 isCompact = !isMediumScreen,
                                 isDarkMode = uiState.isDarkMode,
@@ -112,7 +119,8 @@ fun App() {
 
                             MainContent(
                                 portfolioState = portfolioState,
-                                selectedSection = uiState.selectedSection,
+                                navigationSections = uiState.navigationSections,
+                                selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
                                 onClick = { viewModel.onClick(it) },
                                 modifier = Modifier.weight(1f),

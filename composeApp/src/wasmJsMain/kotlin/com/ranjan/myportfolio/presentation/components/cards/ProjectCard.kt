@@ -11,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ranjan.myportfolio.data.models.Project
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.ExternalLink
 

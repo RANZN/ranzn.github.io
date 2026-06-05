@@ -1,4 +1,4 @@
-package com.ranjan.myportfolio.presentation.navigation
+package com.ranjan.myportfolio.navigation
 
 import com.ranjan.myportfolio.data.models.NavigationSection
 import kotlinx.browser.window

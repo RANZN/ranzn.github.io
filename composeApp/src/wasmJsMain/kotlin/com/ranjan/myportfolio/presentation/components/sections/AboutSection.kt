@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 import com.ranjan.myportfolio.data.models.Article
 import com.ranjan.myportfolio.data.models.ContactInfo
 import com.ranjan.myportfolio.data.models.NavigationSection

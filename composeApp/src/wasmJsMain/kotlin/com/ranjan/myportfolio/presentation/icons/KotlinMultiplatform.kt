@@ -1,4 +1,4 @@
-package com.ranjan.myportfolio.presentation.ui.icons
+package com.ranjan.myportfolio.presentation.icons
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.Color

@@ -1,7 +1,7 @@
 package com.ranjan.myportfolio
 
 import com.ranjan.myportfolio.data.models.*
-import com.ranjan.myportfolio.presentation.ui.icons.KotlinMultiplatform
+import com.ranjan.myportfolio.presentation.icons.KotlinMultiplatform
 import compose.icons.SimpleIcons
 import compose.icons.simpleicons.*
 import myportfolio.composeapp.generated.resources.Res

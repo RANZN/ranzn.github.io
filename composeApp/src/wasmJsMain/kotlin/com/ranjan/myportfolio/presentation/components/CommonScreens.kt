@@ -1,4 +1,4 @@
-package com.ranjan.myportfolio.presentation.screens
+package com.ranjan.myportfolio.presentation.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
@@ -6,8 +6,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.AlertCircle
 import compose.icons.feathericons.RefreshCw
@@ -34,7 +36,7 @@ fun LoadingScreen() {
             verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg)
         ) {
             CircularProgressIndicator(
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(48.dp).scale(scale),
                 strokeWidth = 4.dp,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -84,7 +86,7 @@ fun ErrorScreen(
                     text = "Oops! Something went wrong",
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.error,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                    fontWeight = FontWeight.Bold
                 )
                 
                 Text(

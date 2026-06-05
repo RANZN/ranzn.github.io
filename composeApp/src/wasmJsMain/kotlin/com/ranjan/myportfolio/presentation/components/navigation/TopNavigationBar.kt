@@ -3,7 +3,6 @@ package com.ranjan.myportfolio.presentation.components.navigation
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,12 +14,12 @@ import androidx.compose.ui.unit.sp
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.*
 import com.ranjan.myportfolio.data.models.NavigationSection
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun TopNavigationBar(
     navigationSections: List<NavigationSection>,
-    selectedSection: NavigationSection,
+    selectedSection: () -> NavigationSection,
     onSectionSelected: (NavigationSection) -> Unit,
     isCompact: Boolean,
     isDarkMode: Boolean,
@@ -50,7 +49,7 @@ fun TopNavigationBar(
                     navigationSections.forEach { section ->
                         CompactNavigationItem(
                             section = section,
-                            isSelected = selectedSection == section,
+                            isSelected = selectedSection() == section,
                             onClick = { onSectionSelected(section) }
                         )
                     }
@@ -68,7 +67,7 @@ fun TopNavigationBar(
                         navigationSections.forEach { section ->
                             FullNavigationItem(
                                 section = section,
-                                isSelected = selectedSection == section,
+                                isSelected = selectedSection() == section,
                                 onClick = { onSectionSelected(section) }
                             )
                         }

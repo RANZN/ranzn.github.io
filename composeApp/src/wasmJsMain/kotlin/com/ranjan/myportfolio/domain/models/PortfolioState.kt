@@ -1,7 +1,9 @@
 package com.ranjan.myportfolio.domain.models
 
+import androidx.compose.runtime.Stable
 import com.ranjan.myportfolio.data.models.*
 
+@Stable
 data class PortfolioState(
     val profile: Profile = Profile(),
     val skills: List<Skill> = emptyList(),

@@ -1,16 +1,14 @@
 [versions]
 androidx-lifecycle = "2.9.1"
 composeMultiplatform = "1.8.2"
-junit = "4.13.2"
 kotlin = "2.2.0"
 koin = "4.0.0"
 composeicons = "1.1.1"
 kotlinx-serialization = "1.7.3"
+kotlinxCollectionsImmutable = "0.4.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-junit = { module = "junit:junit", version.ref = "junit" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -20,6 +18,7 @@ composeicons-feather = { module = "br.com.devsrsouza.compose.icons:feather", ver
 composeicons-simple-icons = { module = "br.com.devsrsouza.compose.icons:simple-icons", version.ref = "composeicons" }
 composeicons-fontawesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "composeicons" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

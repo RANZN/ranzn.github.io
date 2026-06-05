@@ -1,23 +1,13 @@
-package com.ranjan.myportfolio.presentation.viewmodel
+package com.ranjan.myportfolio.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import com.ranjan.myportfolio.data.models.*
-import com.ranjan.myportfolio.domain.models.PortfolioState
+import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
-import com.ranjan.myportfolio.presentation.events.UiEvent
-import com.ranjan.myportfolio.presentation.intent.PortfolioIntent
-import com.ranjan.myportfolio.presentation.navigation.NavigationManager
-import com.ranjan.myportfolio.presentation.ui.PortfolioUiState
+import com.ranjan.myportfolio.navigation.NavigationManager
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel following MVI (Model-View-Intent) architecture
@@ -29,16 +19,7 @@ class PortfolioViewModel(
     private val navigationManager: NavigationManager
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        PortfolioUiState(
-            portfolioState = PortfolioState(),
-            selectedSection = NavigationSection.ABOUT,
-            navigationSections = NavigationSection.entries.toList(),
-            isDarkMode = true,
-            isNavigationCollapsed = false
-        )
-    )
-    
+    private val _uiState = MutableStateFlow(PortfolioUiState())
     val uiState: StateFlow<PortfolioUiState> = _uiState.asStateFlow()
 
     private val _events = MutableSharedFlow<UiEvent>()
@@ -76,7 +57,7 @@ class PortfolioViewModel(
 
     private fun loadPortfolioData() {
         _uiState.update { it.copy(isLoading = true, error = null) }
-        
+
         viewModelScope.launch {
             try {
                 val profileDeferred = async { repository.getProfile() }
@@ -93,7 +74,7 @@ class PortfolioViewModel(
                 val education = educationDeferred.await()
                 val contactInfo = contactInfoDeferred.await()
 
-                _uiState.update { 
+                _uiState.update {
                     it.copy(
                         portfolioState = it.portfolioState.copy(
                             profile = profile ?: it.portfolioState.profile,

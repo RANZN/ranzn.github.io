@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.ranjan.myportfolio.data.models.Project
 import com.ranjan.myportfolio.presentation.components.cards.ProjectCard
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun ProjectsSection(

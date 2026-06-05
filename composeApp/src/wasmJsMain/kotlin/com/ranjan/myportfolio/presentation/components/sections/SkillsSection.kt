@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import com.ranjan.myportfolio.data.models.Skill
 import com.ranjan.myportfolio.presentation.components.cards.SkillCard
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun SkillsSection(skills: List<Skill>, isLargeScreen: Boolean) {

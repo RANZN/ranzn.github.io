@@ -1,4 +1,4 @@
-package com.ranjan.myportfolio.presentation.ui.components
+package com.ranjan.myportfolio.presentation.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
@@ -7,14 +7,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
@@ -94,14 +94,14 @@ fun AnimatedBackground(modifier: Modifier = Modifier) {
     }
 }
 
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawCurvedLine(
+private fun DrawScope.drawCurvedLine(
     offset: Float,
     color: Color,
     width: Float,
     height: Float,
     amplitude: Float,
     frequency: Float,
-    density: androidx.compose.ui.unit.Density
+    density: Density
 ) {
     val path = Path()
     val startY = height * 0.3f + (offset % (height * 2)) - height
@@ -124,7 +124,7 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawCurvedLine(
     drawPath(
         path = path,
         color = color,
-        style = Stroke(width = with(density) { 2.dp.toPx() }, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+        style = Stroke(width = with(density) { 2.dp.toPx() }, cap = StrokeCap.Round)
     )
     
     // Draw additional parallel lines for depth
@@ -147,7 +147,7 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawCurvedLine(
     drawPath(
         path = path2,
         color = color.copy(alpha = color.alpha * 0.6f),
-        style = Stroke(width = with(density) { 1.5.dp.toPx() }, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+        style = Stroke(width = with(density) { 1.5.dp.toPx() }, cap = StrokeCap.Round)
     )
 }
 

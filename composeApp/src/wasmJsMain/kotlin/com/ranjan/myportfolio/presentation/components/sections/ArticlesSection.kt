@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import com.ranjan.myportfolio.data.models.Article
 import com.ranjan.myportfolio.presentation.components.cards.ArticleCard
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
-import com.ranjan.myportfolio.presentation.ui.design.DesignSystem
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
 fun ArticlesSection(
