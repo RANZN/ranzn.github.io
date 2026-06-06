@@ -58,7 +58,7 @@ fun ArticleCard(
             Spacer(modifier = Modifier.height(DesignSystem.Spacing.md))
             
             Text(
-                text = article.summary,
+                text = article.description,
                 style = MaterialTheme.typography.bodyMedium,
                 lineHeight = 24.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -71,27 +71,18 @@ fun ArticleCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = article.date,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "•",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = article.readTime,
+                    text = article.pubDate,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             
-            if (article.tags.isNotEmpty()) {
+            if (article.categories.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(DesignSystem.Spacing.md))
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xs)
                 ) {
-                    items(article.tags) { tag ->
+                    items(article.categories) { tag ->
                         FilterChip(
                             selected = false,
                             onClick = { },

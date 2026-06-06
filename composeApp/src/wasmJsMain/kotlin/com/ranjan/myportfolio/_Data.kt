@@ -13,10 +13,13 @@ object UserData {
     const val JOB_TITLE = "Senior Android Developer\nCompose Multiplatform Developer"
     const val EMAIL = "prakashranjan2803@gmail.com"
     const val CONTACT = "+91 7319886550"
-    const val LINKEDIN = "https://linkedin.com/in/prakash-ranzan"
-    const val GITHUB = "https://github.com/RANZN"
-    const val TWITTER = "https://twitter.com/prakashranjan"
-    const val MEDIUM = "https://medium.com/@prakash_ranjan"
+    const val LINKEDIN_USERNAME = "prakash-ranzan"
+    const val GITHUB_USERNAME = "RANZN"
+    const val MEDIUM_USERNAME = "prakash_ranjan"
+    const val GITHUB_LINK = "https://github.com/$GITHUB_USERNAME"
+    const val MEDIUM_LINK = "https://medium.com/@$MEDIUM_USERNAME"
+    const val LINKEDIN_LINK = "https://linkedin.com/in/$LINKEDIN_USERNAME"
+
 
     val ABOUT_DESCRIPTION = listOf(
         "Highly motivated Senior Android Developer with expertise in developing, testing, and deploying Android applications. Currently working at Evangelist Apps, specializing in Kotlin Multiplatform and Jetpack Compose technologies.",

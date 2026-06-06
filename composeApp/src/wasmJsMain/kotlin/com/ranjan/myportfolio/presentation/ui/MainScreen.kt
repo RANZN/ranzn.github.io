@@ -91,7 +91,7 @@ fun MainContent(
             )
         }
 
-        item(NavigationSection.ARTICLES) {
+        if (portfolioState.articles.isNotEmpty()) item(NavigationSection.ARTICLES) {
             ArticlesSection(
                 articles = portfolioState.articles,
                 onClick = onClick,

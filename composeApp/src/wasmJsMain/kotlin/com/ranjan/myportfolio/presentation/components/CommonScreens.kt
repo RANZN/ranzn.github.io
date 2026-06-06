@@ -41,7 +41,7 @@ fun LoadingScreen() {
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = "Loading portfolio...",
+                text = "Loading...",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
