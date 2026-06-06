@@ -1,21 +1,16 @@
 package com.ranjan.myportfolio.data.repository
 
 import com.ranjan.myportfolio.UserData
-import com.ranjan.myportfolio.data.models.Article
-import com.ranjan.myportfolio.data.models.ContactInfo
-import com.ranjan.myportfolio.data.models.Education
-import com.ranjan.myportfolio.data.models.NavigationSection
-import com.ranjan.myportfolio.data.models.Profile
-import com.ranjan.myportfolio.data.models.Project
-import com.ranjan.myportfolio.data.models.Skill
+import com.ranjan.myportfolio.data.models.*
 import com.ranjan.myportfolio.data.service.JsonDataService
 import com.ranjan.myportfolio.data.service.PortfolioJsonData
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 
 class PortfolioRepositoryImpl(
-    private val jsonDataService: JsonDataService
+    private val jsonDataService: JsonDataService,
+    private val articlesRepository: ArticlesRepository
 ) : PortfolioRepository {
-    
+
     // Cache the loaded JSON data
     private var cachedJsonData: PortfolioJsonData? = null
 
@@ -35,16 +30,17 @@ class PortfolioRepositoryImpl(
         return data?.projects ?: emptyList()
     }
 
-    override suspend fun getArticles(): List<Article> {
-        val data = loadJsonData()
-        return data?.articles ?: emptyList()
-    }
+    override suspend fun getArticles(): List<Article> = runCatching {
+        articlesRepository.fetchArticles(UserData.MEDIUM_USERNAME)
+    }.onFailure {
+        print("Error fetching articles: ${it.message}")
+    }.getOrElse { emptyList() }
 
     override suspend fun getEducation(): List<Education> {
         val data = loadJsonData()
         return data?.education ?: emptyList()
     }
-    
+
     /**
      * Loads JSON data once and caches it for subsequent calls.
      * Loads from local resources (bundled JSON file).
@@ -60,11 +56,10 @@ class PortfolioRepositoryImpl(
     override suspend fun getContactInfo(): ContactInfo {
         return ContactInfo(
             email = UserData.EMAIL,
-            linkedin = UserData.LINKEDIN,
-            github = UserData.GITHUB,
-            twitter = UserData.TWITTER,
+            linkedin = UserData.LINKEDIN_LINK,
+            github = UserData.GITHUB_LINK,
             phone = UserData.CONTACT,
-            medium = UserData.MEDIUM
+            medium = UserData.MEDIUM_LINK
         )
     }
 

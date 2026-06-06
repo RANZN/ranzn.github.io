@@ -1,5 +1,6 @@
 package com.ranjan.myportfolio.di
 
+import com.ranjan.myportfolio.data.repository.ArticlesRepository
 import com.ranjan.myportfolio.data.repository.PortfolioRepositoryImpl
 import com.ranjan.myportfolio.data.service.JsonDataService
 import com.ranjan.myportfolio.data.service.JsonDataServiceImpl
@@ -7,14 +8,30 @@ import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.BrowserNavigationManager
 import com.ranjan.myportfolio.navigation.NavigationManager
 import com.ranjan.myportfolio.presentation.ui.PortfolioViewModel
+import io.ktor.client.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val dataModule = module {
+    single {
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                })
+            }
+        }
+    }
     singleOf(::JsonDataServiceImpl) bind JsonDataService::class
     singleOf(::PortfolioRepositoryImpl) bind PortfolioRepository::class
+    singleOf(::ArticlesRepository)
 }
 
 val domainModule = module {

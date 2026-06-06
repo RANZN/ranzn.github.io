@@ -337,7 +337,7 @@ fun AboutSection(
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    text = article.summary,
+                                    text = article.description,
                                     style = MaterialTheme.typography.bodyMedium,
                                     maxLines = 2,
                                     overflow = TextOverflow.Ellipsis
@@ -347,13 +347,7 @@ fun AboutSection(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = article.date,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text("•", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    Text(
-                                        text = article.readTime,
+                                        text = article.pubDate,
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
