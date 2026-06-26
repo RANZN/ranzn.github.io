@@ -5,8 +5,6 @@ import com.ranjan.myportfolio.data.models.*
 import com.ranjan.myportfolio.data.service.JsonDataService
 import com.ranjan.myportfolio.data.service.PortfolioJsonData
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
-import kotlinx.collections.immutable.PersistentList
-import org.jetbrains.skia.Data
 
 class PortfolioRepositoryImpl(
     private val jsonDataService: JsonDataService,
@@ -42,11 +40,11 @@ class PortfolioRepositoryImpl(
         return data?.projects ?: emptyList()
     }
 
-    override suspend fun getArticles(): List<Article> = runCatching {
-        articlesRepository.fetchArticles(UserData.MEDIUM_USERNAME)
+    override suspend fun getArticles(): Result<List<Article>> = runCatching {
+        Result.success(articlesRepository.fetchArticles(UserData.MEDIUM_USERNAME))
     }.onFailure {
         print("Error fetching articles: ${it.message}")
-    }.getOrElse { emptyList() }
+    }.getOrElse { Result.failure(Exception("Unknown error")) }
 
     override suspend fun getEducation(): List<Education> {
         val data = loadJsonData()

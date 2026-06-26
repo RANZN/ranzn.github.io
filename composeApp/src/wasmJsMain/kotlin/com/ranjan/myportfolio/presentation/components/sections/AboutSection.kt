@@ -37,7 +37,7 @@ fun AboutSection(profile: Profile) {
                     withStyle(
                         SpanStyle(
                             color = Color.White,
-                            fontSize = 120.sp
+                            fontSize = 94.sp
                         )
                     ) {
                         append(role.first())
@@ -47,7 +47,7 @@ fun AboutSection(profile: Profile) {
                         withStyle(
                             SpanStyle(
                                 color = Color.Gray,
-                                fontSize = 110.sp
+                                fontSize = 90.sp
                             )
                         ) {
                             append("\n")
@@ -77,11 +77,4 @@ fun AboutSection(profile: Profile) {
     }
 
 
-}
-
-@Preview
-@Composable
-fun AboutSectionPreview() {
-    val profile = remember { Profile() }
-    AboutSection(profile)
 }

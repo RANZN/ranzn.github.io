@@ -3,6 +3,7 @@ package com.ranjan.myportfolio.presentation.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ranjan.myportfolio.data.models.NavigationSection
+import com.ranjan.myportfolio.domain.models.ArticlesState
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.NavigationManager
 import compose.icons.SimpleIcons
@@ -140,15 +141,27 @@ class PortfolioViewModel(
     }
 
     private fun loadArticles() {
+        val mediumUrl = uiState.value.portfolioState.contactInfo.medium
         viewModelScope.launch {
-            val articles = repository.getArticles()
-            _uiState.update {
-                it.copy(
-                    portfolioState = it.portfolioState.copy(
-                        articles = articles.toPersistentList()
-                    )
-                )
-            }
+            repository.getArticles()
+                .onSuccess { articles ->
+                    _uiState.update {
+                        it.copy(
+                            portfolioState = it.portfolioState.copy(
+                                articlesState = ArticlesState.Success(
+                                    articles.take(5).toPersistentList(),
+                                    mediumUrl
+                                )
+                            )
+                        )
+                    }
+                }.onFailure {
+                    _uiState.update {
+                        it.copy(
+                            portfolioState = it.portfolioState.copy(articlesState = ArticlesState.Error(mediumUrl))
+                        )
+                    }
+                }
         }
     }
 

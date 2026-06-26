@@ -12,7 +12,15 @@ data class PortfolioState(
     val mediaPlatforms: PersistentList<SocialMediaPlatform> = persistentListOf(),
     val skills: List<FeaturedItem> = emptyList(),
     val projects: List<Project> = emptyList(),
-    val articles: PersistentList<Article> = persistentListOf(),
+    val articlesState: ArticlesState = ArticlesState.Loading,
     val education: List<Education> = emptyList(),
     val contactInfo: ContactInfo = ContactInfo()
 )
+
+@Stable
+
+sealed interface ArticlesState {
+    data object Loading : ArticlesState
+    data class Success(val articles: PersistentList<Article>, val mediumUrl: String) : ArticlesState
+    data class Error(val mediumUrl: String) : ArticlesState
+}

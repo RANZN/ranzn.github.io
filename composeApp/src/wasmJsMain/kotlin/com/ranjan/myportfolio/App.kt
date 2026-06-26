@@ -10,19 +10,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import com.ranjan.myportfolio.presentation.components.AnimatedBackground
 import com.ranjan.myportfolio.presentation.components.ErrorScreen
 import com.ranjan.myportfolio.presentation.components.LoadingScreen
-import com.ranjan.myportfolio.presentation.components.navigation.TopNavigationBar
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 import com.ranjan.myportfolio.presentation.theme.PortfolioDarkColorScheme
 import com.ranjan.myportfolio.presentation.theme.PortfolioLightColorScheme
-import com.ranjan.myportfolio.presentation.ui.MainContent
-import com.ranjan.myportfolio.presentation.ui.PortfolioIntent
-import com.ranjan.myportfolio.presentation.ui.PortfolioViewModel
-import com.ranjan.myportfolio.presentation.ui.ProfileUi
-import com.ranjan.myportfolio.presentation.ui.UiEvent
+import com.ranjan.myportfolio.presentation.ui.*
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.koin.compose.viewmodel.koinViewModel
@@ -111,7 +105,7 @@ fun App() {
                         }
                     } else {
                         Column(modifier = Modifier.fillMaxSize()) {
-                            TopNavigationBar(
+                          /*  TopNavigationBar(
                                 navigationSections = uiState.navigationSections,
                                 selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
@@ -119,7 +113,7 @@ fun App() {
                                 isDarkMode = uiState.isDarkMode,
                                 onToggleDarkMode = { viewModel.handleIntent(PortfolioIntent.ToggleDarkMode) }
                             )
-
+*/
                             MainContent(
                                 portfolioState = portfolioState,
                                 navigationSections = uiState.navigationSections,

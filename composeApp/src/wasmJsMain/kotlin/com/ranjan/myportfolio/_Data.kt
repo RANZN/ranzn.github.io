@@ -1,13 +1,12 @@
 package com.ranjan.myportfolio
 
 import com.ranjan.myportfolio.data.models.*
-import com.ranjan.myportfolio.presentation.icons.KotlinMultiplatform
 import kotlinx.collections.immutable.persistentListOf
 import myportfolio.composeapp.generated.resources.Res
 import myportfolio.composeapp.generated.resources.*
 
 object UserData {
-    val PROFILE = Res.drawable.compose_multiplatform
+    val PROFILE = Res.drawable.profile_pic
     const val NAME = "Prakash Ranjan"
     const val JOB_TITLE = "Senior Android Developer\nCompose Multiplatform Developer"
     const val ROLE = "SOFTWARE ENGINEER"
