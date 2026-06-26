@@ -4,7 +4,7 @@ import com.ranjan.myportfolio.data.models.*
 
 interface PortfolioRepository {
     suspend fun getProfile(): Profile?
-    suspend fun getSkills(): List<Skill>
+    suspend fun getSkills(): List<FeaturedItem>
     suspend fun getProjects(): List<Project>
     suspend fun getArticles(): List<Article>
     suspend fun getEducation(): List<Education>

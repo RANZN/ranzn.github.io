@@ -18,10 +18,11 @@ import compose.icons.feathericons.ExternalLink
 @Composable
 fun ProjectCard(
     project: Project,
+    modifier: Modifier = Modifier,
     onClick: (String) -> Unit = {}
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.wrapContentSize(),
         elevation = CardDefaults.cardElevation(defaultElevation = DesignSystem.Cards.defaultElevationDp),
         shape = DesignSystem.Cards.shape,
         onClick = { onClick(project.link) },

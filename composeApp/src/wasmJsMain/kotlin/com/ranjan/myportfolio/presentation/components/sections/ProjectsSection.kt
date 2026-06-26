@@ -1,15 +1,21 @@
 package com.ranjan.myportfolio.presentation.components.sections
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
 import com.ranjan.myportfolio.data.models.Project
 import com.ranjan.myportfolio.presentation.components.cards.ProjectCard
-import com.ranjan.myportfolio.presentation.components.common.SectionTitle
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
@@ -21,61 +27,44 @@ fun ProjectsSection(
     Column(
         verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xl)
     ) {
-        SectionTitle("Projects")
-        
-        if (projects.isEmpty()) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(DesignSystem.Cards.padding)
-                        .fillMaxWidth(),
-                    horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+        Text(
+            text = buildAnnotatedString {
+                withStyle(
+                    SpanStyle(
+                        color = Color.White,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 94.sp,
+                    )
                 ) {
-                    Text(
-                        text = "No projects available",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    append("RECENT\n")
+                }
+
+                withStyle(
+                    SpanStyle(
+                        color = Color.Gray,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 90.sp
                     )
-                    Spacer(modifier = Modifier.height(DesignSystem.Spacing.sm))
-                    Text(
-                        text = "Projects will appear here once added to portfolio data",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-                    )
+                ) {
+                    append("PROJECTS")
                 }
-            }
-        } else {
-            val columns = if (isLargeScreen) 2 else 1
-            val chunkedProjects = if (columns > 1 && projects.isNotEmpty()) {
-                val chunkSize = (projects.size + columns - 1) / columns
-                if (chunkSize > 0) {
-                    projects.chunked(chunkSize)
-                } else {
-                    listOf(projects)
-                }
-            } else {
-                listOf(projects)
-            }
-            
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                chunkedProjects.forEach { projectGroup ->
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg)
-                    ) {
-                        projectGroup.forEach { project ->
-                            ProjectCard(project, onClick)
-                        }
-                    }
-                }
+            },
+            style = MaterialTheme.typography.displayLarge,
+            lineHeight = 90.sp
+        )
+
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg),
+            maxItemsInEachRow = if (isLargeScreen) 2 else 1
+        ) {
+            projects.forEach { project ->
+                ProjectCard(
+                    project = project,
+                    modifier = Modifier.fillMaxWidth(if (isLargeScreen) 0.48f else 1f),
+                    onClick = onClick
+                )
             }
         }
     }

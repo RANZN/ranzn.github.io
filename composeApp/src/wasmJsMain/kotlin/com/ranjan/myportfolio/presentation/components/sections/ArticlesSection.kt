@@ -6,10 +6,11 @@ import com.ranjan.myportfolio.data.models.Article
 import com.ranjan.myportfolio.presentation.components.cards.ArticleCard
 import com.ranjan.myportfolio.presentation.components.common.SectionTitle
 import com.ranjan.myportfolio.presentation.design.DesignSystem
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun ArticlesSection(
-    articles: List<Article>,
+    articles: PersistentList<Article>,
     onClick: (String) -> Unit = {},
 ) {
     Column(

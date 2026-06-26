@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ranjan.myportfolio.data.models.NavigationSection
@@ -60,17 +61,21 @@ fun MainContent(
             .fillMaxSize()
             .widthIn(max = DesignSystem.Layout.contentMaxWidth)
             .padding(horizontal = if (isLargeScreen) DesignSystem.Spacing.xxl else DesignSystem.Spacing.lg),
-        contentPadding = PaddingValues(vertical = DesignSystem.Spacing.xxl),
+        contentPadding = PaddingValues(vertical = DesignSystem.Spacing.exl),
         verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xxxl),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item(key = NavigationSection.ABOUT) {
-            AboutSection(
-                profile = portfolioState.profile,
-                contactInfo = portfolioState.contactInfo,
-                skills = portfolioState.skills,
-                articles = portfolioState.articles,
-                onSectionSelected = onSectionSelected,
+            AboutSection(profile = portfolioState.profile)
+        }
+
+        item {
+            Spacer(Modifier.height(200.dp).blur(50.dp))
+        }
+
+        item(NavigationSection.PROJECTS) {
+            ProjectsSection(
+                projects = portfolioState.projects,
                 onClick = onClick,
                 isLargeScreen = isLargeScreen
             )
@@ -83,15 +88,7 @@ fun MainContent(
             )
         }
 
-        item(NavigationSection.PROJECTS) {
-            ProjectsSection(
-                projects = portfolioState.projects,
-                onClick = onClick,
-                isLargeScreen = isLargeScreen
-            )
-        }
-
-        if (portfolioState.articles.isNotEmpty()) item(NavigationSection.ARTICLES) {
+        item(NavigationSection.ARTICLES) {
             ArticlesSection(
                 articles = portfolioState.articles,
                 onClick = onClick,
@@ -105,21 +102,11 @@ fun MainContent(
             )
         }
 
-        stickyHeader(NavigationSection.CONTACT) {
+        item(NavigationSection.CONTACT) {
             ContactSection(
                 contactInfo = portfolioState.contactInfo,
                 onClick = onClick,
                 isLargeScreen = isLargeScreen
-            )
-        }
-
-        item("bottom") {
-            Text(
-                text = "- • • • -",
-                modifier = Modifier.padding(top = 400.dp),
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }

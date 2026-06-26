@@ -7,18 +7,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import com.ranjan.myportfolio.presentation.components.AnimatedBackground
 import com.ranjan.myportfolio.presentation.components.ErrorScreen
 import com.ranjan.myportfolio.presentation.components.LoadingScreen
-import com.ranjan.myportfolio.presentation.components.navigation.NavigationSidebar
 import com.ranjan.myportfolio.presentation.components.navigation.TopNavigationBar
+import com.ranjan.myportfolio.presentation.design.DesignSystem
 import com.ranjan.myportfolio.presentation.theme.PortfolioDarkColorScheme
 import com.ranjan.myportfolio.presentation.theme.PortfolioLightColorScheme
 import com.ranjan.myportfolio.presentation.ui.MainContent
 import com.ranjan.myportfolio.presentation.ui.PortfolioIntent
 import com.ranjan.myportfolio.presentation.ui.PortfolioViewModel
+import com.ranjan.myportfolio.presentation.ui.ProfileUi
 import com.ranjan.myportfolio.presentation.ui.UiEvent
 import kotlinx.browser.document
 import kotlinx.browser.window
@@ -81,30 +84,30 @@ fun App() {
 
                 else -> {
                     if (isLargeScreen) {
-                        Row(modifier = Modifier.fillMaxSize()) {
-                            NavigationSidebar(
-                                profile = portfolioState.profile,
-                                navigationSections = uiState.navigationSections,
-                                selectedSection = { uiState.selectedSection },
-                                onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
-                                isCollapsed = uiState.isNavigationCollapsed,
-                                onToggleCollapse = {
-                                    viewModel.handleIntent(PortfolioIntent.ToggleNavigationCollapse(!uiState.isNavigationCollapsed))
-                                },
-                                isDarkMode = uiState.isDarkMode,
-                                onToggleDarkMode = { viewModel.handleIntent(PortfolioIntent.ToggleDarkMode) },
-                                modifier = Modifier.width(if (uiState.isNavigationCollapsed) 80.dp else 280.dp)
-                            )
-
-                            MainContent(
-                                portfolioState = portfolioState,
-                                navigationSections = uiState.navigationSections,
-                                selectedSection = { uiState.selectedSection },
-                                onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
-                                onClick = { viewModel.onClick(it) },
-                                modifier = Modifier.weight(1f),
-                                isLargeScreen = isLargeScreen
-                            )
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Row(
+                                modifier = Modifier.widthIn(max = DesignSystem.Layout.contentMaxWidth).fillMaxHeight(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                ProfileUi(
+                                    profile = portfolioState.profile,
+                                    mediaPlatforms = portfolioState.mediaPlatforms,
+                                    modifier = Modifier.weight(0.4f).fillMaxHeight(0.7f),
+                                    onPlatformClick = { viewModel.launchUrl(it) },
+                                )
+                                MainContent(
+                                    portfolioState = portfolioState,
+                                    navigationSections = uiState.navigationSections,
+                                    selectedSection = { uiState.selectedSection },
+                                    onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
+                                    onClick = { viewModel.launchUrl(it) },
+                                    modifier = Modifier.weight(1f),
+                                    isLargeScreen = isLargeScreen
+                                )
+                            }
                         }
                     } else {
                         Column(modifier = Modifier.fillMaxSize()) {
@@ -122,7 +125,7 @@ fun App() {
                                 navigationSections = uiState.navigationSections,
                                 selectedSection = { uiState.selectedSection },
                                 onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
-                                onClick = { viewModel.onClick(it) },
+                                onClick = { viewModel.launchUrl(it) },
                                 modifier = Modifier.weight(1f),
                                 isLargeScreen = isLargeScreen
                             )

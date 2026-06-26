@@ -10,6 +10,7 @@ import org.jetbrains.compose.resources.DrawableResource
 data class Profile(
     val name: String = UserData.NAME,
     val title: String = UserData.JOB_TITLE,
-    val aboutDescription: List<String> = UserData.ABOUT_DESCRIPTION,
+    val role: String = UserData.ROLE,
+    val aboutDescription: String = UserData.ABOUT_DESCRIPTION,
     val profileImageRes: DrawableResource = Res.drawable.profile_placeholder
 )

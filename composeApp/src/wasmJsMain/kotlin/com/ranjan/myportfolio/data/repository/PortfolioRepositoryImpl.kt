@@ -5,6 +5,8 @@ import com.ranjan.myportfolio.data.models.*
 import com.ranjan.myportfolio.data.service.JsonDataService
 import com.ranjan.myportfolio.data.service.PortfolioJsonData
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
+import kotlinx.collections.immutable.PersistentList
+import org.jetbrains.skia.Data
 
 class PortfolioRepositoryImpl(
     private val jsonDataService: JsonDataService,
@@ -23,7 +25,17 @@ class PortfolioRepositoryImpl(
         )
     }
 
-    override suspend fun getSkills(): List<Skill> = UserData.SKILLS
+    override suspend fun getSkills(): List<FeaturedItem> = listOf(
+        UserData.LANGUAGES,
+        UserData.MOBILE,
+        UserData.ARCHITECTURE,
+        UserData.BACKEND,
+        UserData.DATABASES,
+        UserData.DEPENDENCY_INJECTION,
+        UserData.VERSION_CONTROL,
+        UserData.DEVELOPMENT_TOOLS,
+        UserData.AI_TOOLS,
+    ).flatten()
 
     override suspend fun getProjects(): List<Project> {
         val data = loadJsonData()
