@@ -3,7 +3,6 @@ package com.ranjan.myportfolio.presentation.components
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,13 +20,13 @@ import kotlin.math.sin
 fun AnimatedBackground(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "background_animation")
     
-    val primaryColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
-    val secondaryColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
-    val tertiaryColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.06f)
+    val primaryColor = Color(0xFF00E5FF)
+    val secondaryColor = Color(0xFF7C4DFF)
+    val tertiaryColor = Color(0xFFFF2D95)
     
     val offset1 by infiniteTransition.animateFloat(
         initialValue = 0f,
-        targetValue = 2000f,
+        targetValue = 3000f,
         animationSpec = infiniteRepeatable(
             animation = tween(20000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -36,18 +35,18 @@ fun AnimatedBackground(modifier: Modifier = Modifier) {
     )
     
     val offset2 by infiniteTransition.animateFloat(
-        initialValue = 1000f,
+        initialValue = -1000f,
         targetValue = 3000f,
         animationSpec = infiniteRepeatable(
-            animation = tween(25000, easing = LinearEasing),
+            animation = tween(25000, easing = LinearOutSlowInEasing),
             repeatMode = RepeatMode.Restart
         ),
         label = "offset2"
     )
     
     val offset3 by infiniteTransition.animateFloat(
-        initialValue = 500f,
-        targetValue = 2500f,
+        initialValue = -2000f,
+        targetValue = 3500f,
         animationSpec = infiniteRepeatable(
             animation = tween(30000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart

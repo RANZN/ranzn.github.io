@@ -3,8 +3,15 @@ package com.ranjan.myportfolio.presentation.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ranjan.myportfolio.data.models.NavigationSection
+import com.ranjan.myportfolio.domain.models.ArticlesState
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.NavigationManager
+import compose.icons.SimpleIcons
+import compose.icons.simpleicons.Github
+import compose.icons.simpleicons.Linkedin
+import compose.icons.simpleicons.Medium
+import compose.icons.simpleicons.Twitter
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -63,24 +70,57 @@ class PortfolioViewModel(
                 val profileDeferred = async { repository.getProfile() }
                 val skillsDeferred = async { repository.getSkills() }
                 val projectsDeferred = async { repository.getProjects() }
-                val articlesDeferred = async { repository.getArticles() }
                 val educationDeferred = async { repository.getEducation() }
                 val contactInfoDeferred = async { repository.getContactInfo() }
 
                 val profile = profileDeferred.await()
                 val skills = skillsDeferred.await()
                 val projects = projectsDeferred.await()
-                val articles = articlesDeferred.await()
                 val education = educationDeferred.await()
                 val contactInfo = contactInfoDeferred.await()
+
+                val socialMediaPlatforms = buildList {
+                    add(
+                        SocialMediaPlatform(
+                            icon = SimpleIcons.Linkedin,
+                            label = "LinkedIn",
+                            url = contactInfo.linkedin
+                        )
+                    )
+                    contactInfo.medium?.let { mediumUrl ->
+                        add(
+                            SocialMediaPlatform(
+                                icon = SimpleIcons.Medium,
+                                label = "Medium",
+                                url = mediumUrl
+                            )
+                        )
+                    }
+                    contactInfo.twitter?.let { twitterUrl ->
+                        add(
+                            SocialMediaPlatform(
+                                icon = SimpleIcons.Twitter,
+                                label = "Twitter",
+                                url = twitterUrl
+                            )
+                        )
+                    }
+                    add(
+                        SocialMediaPlatform(
+                            icon = SimpleIcons.Github,
+                            label = "GitHub",
+                            url = contactInfo.github
+                        )
+                    )
+                }.toPersistentList()
 
                 _uiState.update {
                     it.copy(
                         portfolioState = it.portfolioState.copy(
                             profile = profile ?: it.portfolioState.profile,
+                            mediaPlatforms = socialMediaPlatforms,
                             skills = skills,
                             projects = projects,
-                            articles = articles,
                             education = education,
                             contactInfo = contactInfo
                         ),
@@ -88,6 +128,7 @@ class PortfolioViewModel(
                         error = null
                     )
                 }
+                loadArticles()
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
@@ -96,6 +137,31 @@ class PortfolioViewModel(
                     )
                 }
             }
+        }
+    }
+
+    private fun loadArticles() {
+        val mediumUrl = uiState.value.portfolioState.contactInfo.medium
+        viewModelScope.launch {
+            repository.getArticles()
+                .onSuccess { articles ->
+                    _uiState.update {
+                        it.copy(
+                            portfolioState = it.portfolioState.copy(
+                                articlesState = ArticlesState.Success(
+                                    articles.take(5).toPersistentList(),
+                                    mediumUrl
+                                )
+                            )
+                        )
+                    }
+                }.onFailure {
+                    _uiState.update {
+                        it.copy(
+                            portfolioState = it.portfolioState.copy(articlesState = ArticlesState.Error(mediumUrl))
+                        )
+                    }
+                }
         }
     }
 
@@ -126,7 +192,7 @@ class PortfolioViewModel(
         _uiState.update { it.copy(error = null) }
     }
 
-    fun onClick(url: String) {
+    fun launchUrl(url: String) {
         if (url.isNotBlank()) {
             viewModelScope.launch {
                 _events.emit(UiEvent.OpenUrl(url))

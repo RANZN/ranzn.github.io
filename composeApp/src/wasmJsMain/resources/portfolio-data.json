@@ -1,33 +1,4 @@
 {
-  "articles": [
-    {
-      "title": "Kotlin Multiplatform in Production",
-      "summary": "Sharing insights from implementing Kotlin Multiplatform in real-world Android applications at Evangelist Apps",
-      "date": "2024-01-20",
-      "readTime": "8 min read",
-      "link": "https://medium.com/@prakash_ranjan/kotlin-multiplatform-production",
-      "tags": ["Kotlin Multiplatform", "Android", "Production"],
-      "order": 1
-    },
-    {
-      "title": "Modern Android Development with Jetpack Compose",
-      "summary": "Best practices and patterns for building scalable Android apps with Jetpack Compose",
-      "date": "2023-12-15",
-      "readTime": "10 min read",
-      "link": "https://medium.com/@prakash_ranjan/jetpack-compose-modern-android",
-      "tags": ["Jetpack Compose", "Android", "UI Development"],
-      "order": 2
-    },
-    {
-      "title": "Agile Development in Mobile Teams",
-      "summary": "Implementing Agile Scrum methodology effectively in Android development teams",
-      "date": "2023-11-28",
-      "readTime": "6 min read",
-      "link": "https://medium.com/@prakash_ranjan/agile-mobile-development",
-      "tags": ["Agile", "Scrum", "Team Management"],
-      "order": 3
-    }
-  ],
   "projects": [
     {
       "title": "MyPortfolio",

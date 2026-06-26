@@ -15,6 +15,7 @@ import compose.icons.FeatherIcons
 import compose.icons.feathericons.*
 import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.presentation.design.DesignSystem
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TopNavigationBar(
@@ -74,7 +75,7 @@ fun TopNavigationBar(
                     }
                 }
             }
-            
+
             // Dark mode toggle
             IconButton(
                 onClick = onToggleDarkMode,
@@ -102,7 +103,7 @@ private fun CompactNavigationItem(
     } else {
         Color.Transparent
     }
-    
+
     val contentColor = if (isSelected) {
         MaterialTheme.colorScheme.onPrimaryContainer
     } else {
@@ -121,12 +122,12 @@ private fun CompactNavigationItem(
             horizontalArrangement = Arrangement.spacedBy(if (isSelected) DesignSystem.Spacing.sm else 0.dp)
         ) {
             Icon(
-                imageVector = section.icon,
+                painter = painterResource(section.icon),
                 contentDescription = section.title,
                 modifier = Modifier.size(16.dp),
                 tint = contentColor
             )
-            
+
             // Show text only when selected in compact mode
             if (isSelected) {
                 Text(
@@ -164,7 +165,7 @@ private fun FullNavigationItem(
             horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.sm)
         ) {
             Icon(
-                imageVector = section.icon,
+                painter = painterResource(section.icon),
                 contentDescription = section.title,
                 modifier = Modifier.size(18.dp),
                 tint = textColor

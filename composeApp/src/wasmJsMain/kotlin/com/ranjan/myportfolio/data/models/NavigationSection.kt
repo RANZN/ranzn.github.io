@@ -1,19 +1,18 @@
 package com.ranjan.myportfolio.data.models
 
-import androidx.compose.ui.graphics.vector.ImageVector
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import myportfolio.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.DrawableResource
 
 enum class NavigationSection(
     val title: String,
-    val icon: ImageVector
+    val icon: DrawableResource
 ) {
-    ABOUT("About", FeatherIcons.User),
-    SKILLS("Skills", FeatherIcons.Star),
-    PROJECTS("Projects", FeatherIcons.Briefcase),
-    ARTICLES("Articles", FeatherIcons.FileText),
-    EDUCATION("Education", FeatherIcons.BookOpen),
-    CONTACT("Contact", FeatherIcons.Mail);
+    ABOUT("About", Res.drawable.user),
+    SKILLS("Skills", Res.drawable.star),
+    PROJECTS("Projects", Res.drawable.briefcase),
+    ARTICLES("Articles", Res.drawable.file_text),
+    EDUCATION("Education", Res.drawable.book_open),
+    CONTACT("Contact", Res.drawable.mail);
 
     companion object {
         fun fromString(name: String): NavigationSection? {

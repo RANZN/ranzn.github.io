@@ -23,18 +23,28 @@ class PortfolioRepositoryImpl(
         )
     }
 
-    override suspend fun getSkills(): List<Skill> = UserData.SKILLS
+    override suspend fun getSkills(): List<FeaturedItem> = listOf(
+        UserData.LANGUAGES,
+        UserData.MOBILE,
+        UserData.ARCHITECTURE,
+        UserData.BACKEND,
+        UserData.DATABASES,
+        UserData.DEPENDENCY_INJECTION,
+        UserData.VERSION_CONTROL,
+        UserData.DEVELOPMENT_TOOLS,
+        UserData.AI_TOOLS,
+    ).flatten()
 
     override suspend fun getProjects(): List<Project> {
         val data = loadJsonData()
         return data?.projects ?: emptyList()
     }
 
-    override suspend fun getArticles(): List<Article> = runCatching {
-        articlesRepository.fetchArticles(UserData.MEDIUM_USERNAME)
+    override suspend fun getArticles(): Result<List<Article>> = runCatching {
+        Result.success(articlesRepository.fetchArticles(UserData.MEDIUM_USERNAME))
     }.onFailure {
         print("Error fetching articles: ${it.message}")
-    }.getOrElse { emptyList() }
+    }.getOrElse { Result.failure(Exception("Unknown error")) }
 
     override suspend fun getEducation(): List<Education> {
         val data = loadJsonData()

@@ -2,6 +2,7 @@ package com.ranjan.myportfolio.presentation.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.domain.models.PortfolioState
 import kotlinx.collections.immutable.PersistentList
@@ -19,6 +20,12 @@ data class PortfolioUiState(
     val error: String? = null
 )
 
+@Stable
+data class SocialMediaPlatform(
+    val icon: ImageVector,
+    val label: String,
+    val url: String
+)
 
 @Immutable
 sealed class PortfolioIntent {

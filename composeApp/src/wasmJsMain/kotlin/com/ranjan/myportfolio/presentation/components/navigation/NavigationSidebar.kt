@@ -218,7 +218,7 @@ private fun NavigationItem(
     } else {
         MaterialTheme.colorScheme.primary.copy(alpha = 0.8f) // Use primary color for icons when not selected
     }
-    
+
     val textColor = if (isSelected) {
         MaterialTheme.colorScheme.onPrimaryContainer
     } else {
@@ -241,7 +241,7 @@ private fun NavigationItem(
             horizontalArrangement = if (isCollapsed) Arrangement.Center else Arrangement.Start
         ) {
             Icon(
-                imageVector = section.icon,
+                painter = painterResource(section.icon),
                 contentDescription = section.title,
                 modifier = Modifier.size(20.dp),
                 tint = contentColor

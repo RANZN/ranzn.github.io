@@ -10,9 +10,10 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.ranjan.myportfolio.presentation.design.DesignSystem
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.AlertCircle
-import compose.icons.feathericons.RefreshCw
+import myportfolio.composeapp.generated.resources.Res
+import myportfolio.composeapp.generated.resources.alert_circle
+import myportfolio.composeapp.generated.resources.refresh_cw
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun LoadingScreen() {
@@ -26,7 +27,7 @@ fun LoadingScreen() {
         ),
         label = "scale"
     )
-    
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -76,25 +77,25 @@ fun ErrorScreen(
                 verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.lg)
             ) {
                 Icon(
-                    imageVector = FeatherIcons.AlertCircle,
+                    painter = painterResource(Res.drawable.alert_circle),
                     contentDescription = "Error",
                     modifier = Modifier.size(48.dp),
                     tint = MaterialTheme.colorScheme.error
                 )
-                
+
                 Text(
                     text = "Oops! Something went wrong",
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.error,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 Text(
                     text = error,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.md),
                     modifier = Modifier.fillMaxWidth()
@@ -112,7 +113,7 @@ fun ErrorScreen(
                         shape = DesignSystem.Cards.shape
                     ) {
                         Icon(
-                            imageVector = FeatherIcons.RefreshCw,
+                            painter = painterResource(Res.drawable.refresh_cw),
                             contentDescription = "Retry",
                             modifier = Modifier.size(18.dp)
                         )
