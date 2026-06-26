@@ -2,17 +2,11 @@ package com.ranjan.myportfolio.data.repository
 
 import com.ranjan.myportfolio.UserData
 import com.ranjan.myportfolio.data.models.*
-import com.ranjan.myportfolio.data.service.JsonDataService
-import com.ranjan.myportfolio.data.service.PortfolioJsonData
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 
 class PortfolioRepositoryImpl(
-    private val jsonDataService: JsonDataService,
     private val articlesRepository: ArticlesRepository
 ) : PortfolioRepository {
-
-    // Cache the loaded JSON data
-    private var cachedJsonData: PortfolioJsonData? = null
 
     override suspend fun getProfile(): Profile {
         return Profile(
@@ -36,8 +30,7 @@ class PortfolioRepositoryImpl(
     ).flatten()
 
     override suspend fun getProjects(): List<Project> {
-        val data = loadJsonData()
-        return data?.projects ?: emptyList()
+        return UserData.PROJECTS
     }
 
     override suspend fun getArticles(): Result<List<Article>> = runCatching {
@@ -47,20 +40,7 @@ class PortfolioRepositoryImpl(
     }.getOrElse { Result.failure(Exception("Unknown error")) }
 
     override suspend fun getEducation(): List<Education> {
-        val data = loadJsonData()
-        return data?.education ?: emptyList()
-    }
-
-    /**
-     * Loads JSON data once and caches it for subsequent calls.
-     * Loads from local resources (bundled JSON file).
-     * The JSON file is loaded only once per app session.
-     */
-    private suspend fun loadJsonData(): PortfolioJsonData? {
-        if (cachedJsonData == null) {
-            cachedJsonData = jsonDataService.loadPortfolioData()
-        }
-        return cachedJsonData
+        return UserData.EDUCATION
     }
 
     override suspend fun getContactInfo(): ContactInfo {

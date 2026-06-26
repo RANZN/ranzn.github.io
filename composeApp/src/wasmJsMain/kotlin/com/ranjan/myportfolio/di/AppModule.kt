@@ -2,8 +2,6 @@ package com.ranjan.myportfolio.di
 
 import com.ranjan.myportfolio.data.repository.ArticlesRepository
 import com.ranjan.myportfolio.data.repository.PortfolioRepositoryImpl
-import com.ranjan.myportfolio.data.service.JsonDataService
-import com.ranjan.myportfolio.data.service.JsonDataServiceImpl
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.BrowserNavigationManager
 import com.ranjan.myportfolio.navigation.NavigationManager
@@ -29,7 +27,6 @@ val dataModule = module {
             }
         }
     }
-    singleOf(::JsonDataServiceImpl) bind JsonDataService::class
     singleOf(::PortfolioRepositoryImpl) bind PortfolioRepository::class
     singleOf(::ArticlesRepository)
 }

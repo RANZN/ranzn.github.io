@@ -83,4 +83,51 @@ object UserData {
         FeaturedItem(imageResource = Res.drawable.googlegemini, title = "Gemini", description = "AI Assistant"),
         FeaturedItem(imageResource = Res.drawable.ollama, title = "Ollama", description = "Local AI Runtime")
     )
+
+    val PROJECTS = persistentListOf(
+        Project(
+            title = "MyPortfolio",
+            description = "Personal portfolio website built with Kotlin Multiplatform and Compose for Web, showcasing modern cross-platform development",
+            technologies = listOf("Kotlin Multiplatform", "Compose Multiplatform", "WASM", "Web"),
+            link = "https://github.com/RANZN/MyPortfolio",
+            imageUrl = null,
+        ),
+        Project(
+            title = "SmartCents",
+            description = "Personal finance management app with expense tracking and budget management using modern Android architecture",
+            technologies = listOf("Kotlin", "Android", "Room", "MVVM", "Material Design", "Jetpack Compose"),
+            link = "https://github.com/RANZN/SmartCents",
+            imageUrl = null,
+        ),
+        Project(
+            title = "Forum Mobile Android",
+            description = "Mobile forum application with real-time messaging and community features built with modern Android stack",
+            technologies = listOf("Kotlin", "Android", "Firebase", "Material Design", "Real-time", "Jetpack Compose"),
+            link = "https://github.com/RANZN/forum-mobile-android",
+            imageUrl = null,
+        ),
+        Project(
+            title = "Evangelist Apps Projects",
+            description = "Professional Android applications developed at Evangelist Apps using cutting-edge technologies",
+            technologies = listOf("Kotlin", "Android", "Kotlin Multiplatform", "Jetpack Compose"),
+            link = "https://github.com/RANZN",
+            imageUrl = null,
+        )
+    )
+
+    val EDUCATION = persistentListOf(
+        Education(
+            degree = "Bachelor of Technology - BTech",
+            institution = "KIIT - Kalinga Institute of Industrial Technology",
+            year = "Jan 2017 - Jan 2021",
+            description = "Electrical and Electronics Engineering with focus on software development and mobile technologies",
+            gpa = "8.02"
+        ),
+        Education(
+            degree = "Professional Android Development",
+            institution = "Masai School",
+            year = "Apr 2021 - Jan 2022",
+            description = "Advanced Android development with Kotlin Multiplatform and Jetpack Compose in production environment",
+        )
+    )
 }
