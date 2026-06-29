@@ -2,10 +2,11 @@ package com.ranjan.myportfolio.presentation.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -21,39 +22,15 @@ import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.domain.models.PortfolioState
 import com.ranjan.myportfolio.presentation.components.sections.*
 import com.ranjan.myportfolio.presentation.design.DesignSystem
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 fun MainContent(
     portfolioState: PortfolioState,
-    navigationSections: PersistentList<NavigationSection>,
-    selectedSection: () -> NavigationSection,
-    onSectionSelected: (NavigationSection) -> Unit = {},
     onClick: (String) -> Unit = {},
     modifier: Modifier = Modifier,
-    isLargeScreen: Boolean
+    isLargeScreen: Boolean,
+    scrollState: LazyListState = rememberLazyListState()
 ) {
-    val scrollState = rememberLazyListState()
-    var isAutoScrolling by remember { mutableStateOf(false) }
-    LaunchedEffect(selectedSection()) {
-        if (scrollState.isScrollInProgress) return@LaunchedEffect
-        val index = navigationSections.indexOfFirst { it == selectedSection() }
-        if (index >= 0) {
-            isAutoScrolling = true
-            scrollState.animateScrollToItem(index)
-            isAutoScrolling = false
-        }
-    }
-
-    LaunchedEffect(scrollState) {
-        snapshotFlow { scrollState.firstVisibleItemIndex }
-            .distinctUntilChanged()
-            .collect { index ->
-                if (!isAutoScrolling) navigationSections.getOrNull(index)?.let(onSectionSelected)
-            }
-    }
-
     LazyColumn(
         state = scrollState,
         modifier = modifier
@@ -77,7 +54,7 @@ fun MainContent(
         }
 
         item {
-            Spacer(Modifier.height(200.dp).blur(50.dp))
+            Spacer(Modifier.fillMaxWidth().height(200.dp).blur(50.dp))
         }
 
         item(NavigationSection.PROJECTS) {
@@ -126,7 +103,6 @@ fun MainContent(
             ToolsSection(
                 title = "AI Tools",
                 tools = UserData.AI_TOOLS,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -134,7 +110,6 @@ fun MainContent(
             ToolsSection(
                 title = "Development Tools",
                 tools = UserData.DEVELOPMENT_TOOLS,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -142,7 +117,6 @@ fun MainContent(
             ToolsSection(
                 title = "Version Control",
                 tools = UserData.VERSION_CONTROL,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -150,7 +124,6 @@ fun MainContent(
             ToolsSection(
                 title = "Databases",
                 tools = UserData.DATABASES,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -158,7 +131,6 @@ fun MainContent(
             ToolsSection(
                 title = "Backend",
                 tools = UserData.BACKEND,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -166,7 +138,6 @@ fun MainContent(
             ToolsSection(
                 title = "Mobile",
                 tools = UserData.MOBILE,
-                isLargeScreen = isLargeScreen
             )
         }
 
@@ -174,7 +145,6 @@ fun MainContent(
             ToolsSection(
                 title = "Languages",
                 tools = UserData.LANGUAGES,
-                isLargeScreen = isLargeScreen
             )
         }
 
