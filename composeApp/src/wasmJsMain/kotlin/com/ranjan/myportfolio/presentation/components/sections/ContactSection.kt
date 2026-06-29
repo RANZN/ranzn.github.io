@@ -13,7 +13,7 @@ import compose.icons.SimpleIcons
 import compose.icons.feathericons.*
 import compose.icons.simpleicons.*
 import com.ranjan.myportfolio.data.models.ContactInfo
-import com.ranjan.myportfolio.presentation.components.common.SectionTitle
+import com.ranjan.myportfolio.presentation.components.common.SectionTitleBody
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 
 @Composable
@@ -24,7 +24,7 @@ fun ContactSection(
 ) {
 
     Column(verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xl)) {
-        SectionTitle("Contact Me")
+        SectionTitleBody("Contact Me")
 
         Card(
             modifier = Modifier
@@ -101,7 +101,7 @@ fun ContactSection(
                     }
 
                     // Medium (only if available)
-                    contactInfo.medium?.let { mediumUrl ->
+                    contactInfo.medium.let { mediumUrl ->
                         add(
                             ContactMethod(
                                 icon = SimpleIcons.Medium,

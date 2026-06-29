@@ -3,8 +3,9 @@ package com.ranjan.myportfolio.presentation.ui
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.ranjan.myportfolio.domain.models.PortfolioState
-
+import com.ranjan.myportfolio.data.models.*
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
 @Stable
 data class PortfolioUiState(
@@ -13,6 +14,26 @@ data class PortfolioUiState(
     val isLoading: Boolean = false,
     val error: String? = null
 )
+
+@Stable
+data class PortfolioState(
+    val profile: Profile = Profile(),
+    val mediaPlatforms: PersistentList<SocialMediaPlatform> = persistentListOf(),
+    val skills: PersistentList<FeaturedItem> = persistentListOf(),
+    val projects: PersistentList<Project> = persistentListOf(),
+    val articlesState: ArticlesState = ArticlesState.Loading,
+    val education: PersistentList<Education> = persistentListOf(),
+    val contactInfo: ContactInfo = ContactInfo(),
+    val experience: PersistentList<Experience> = persistentListOf()
+)
+
+@Stable
+
+sealed interface ArticlesState {
+    data object Loading : ArticlesState
+    data class Success(val articles: PersistentList<Article>, val mediumUrl: String) : ArticlesState
+    data class Error(val mediumUrl: String) : ArticlesState
+}
 
 @Stable
 data class SocialMediaPlatform(

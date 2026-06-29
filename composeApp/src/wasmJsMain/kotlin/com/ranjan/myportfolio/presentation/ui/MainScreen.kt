@@ -3,23 +3,17 @@ package com.ranjan.myportfolio.presentation.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ranjan.myportfolio.UserData
 import com.ranjan.myportfolio.data.models.NavigationSection
-import com.ranjan.myportfolio.domain.models.PortfolioState
+import com.ranjan.myportfolio.presentation.components.cards.ExperienceCard
+import com.ranjan.myportfolio.presentation.components.common.SectionTitle
 import com.ranjan.myportfolio.presentation.components.sections.*
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 
@@ -57,46 +51,11 @@ fun MainContent(
             Spacer(Modifier.fillMaxWidth().height(200.dp).blur(50.dp))
         }
 
-        item(NavigationSection.PROJECTS) {
-            ProjectsSection(
-                projects = portfolioState.projects,
-                onClick = onClick,
-                isLargeScreen = isLargeScreen
-            )
-        }
-
         item(NavigationSection.SKILLS) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            SpanStyle(
-                                color = Color.White,
-                                fontWeight = FontWeight.Black,
-                                fontSize = 94.sp,
-                            )
-                        ) {
-                            append("PREMIUM\n")
-                        }
-
-                        withStyle(
-                            SpanStyle(
-                                color = Color.Gray,
-                                fontWeight = FontWeight.Black,
-                                fontSize = 90.sp
-                            )
-                        ) {
-                            append("TOOLS")
-                        }
-                    },
-                    style = MaterialTheme.typography.displayLarge,
-                    fontSize = 94.sp,
-                    lineHeight = 90.sp
-                )
-            }
+            SectionTitle(
+                line1 = "PREMIUM",
+                line2 = "TOOLS"
+            )
         }
 
         item {
@@ -147,6 +106,26 @@ fun MainContent(
                 tools = UserData.LANGUAGES,
             )
         }
+
+        item(NavigationSection.PROJECTS) {
+            ProjectsSection(
+                projects = portfolioState.projects,
+                onClick = onClick,
+                isLargeScreen = isLargeScreen
+            )
+        }
+
+        item(NavigationSection.EXPERIENCE) {
+            SectionTitle(
+                line1 = "4 Years of",
+                line2 = "EXPERIENCE"
+            )
+        }
+
+        items(portfolioState.experience) {
+            ExperienceCard(experience = it)
+        }
+
 
         item(NavigationSection.ARTICLES) {
             ArticlesSection(

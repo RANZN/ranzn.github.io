@@ -2,7 +2,6 @@ package com.ranjan.myportfolio.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ranjan.myportfolio.domain.models.ArticlesState
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.NavigationManager
 import compose.icons.SimpleIcons
@@ -25,7 +24,15 @@ class PortfolioViewModel(
     private val navigationManager: NavigationManager
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(PortfolioUiState())
+    private val _uiState = MutableStateFlow(
+        PortfolioUiState(
+            portfolioState = PortfolioState(
+                profile = repository.getProfile(),
+                education = repository.getEducation(),
+                experience = repository.getExperience(),
+            )
+        )
+    )
     val uiState: StateFlow<PortfolioUiState> = _uiState.asStateFlow()
 
     private val _events = MutableSharedFlow<UiEvent>()
@@ -54,16 +61,12 @@ class PortfolioViewModel(
 
         viewModelScope.launch {
             try {
-                val profileDeferred = async { repository.getProfile() }
                 val skillsDeferred = async { repository.getSkills() }
                 val projectsDeferred = async { repository.getProjects() }
-                val educationDeferred = async { repository.getEducation() }
                 val contactInfoDeferred = async { repository.getContactInfo() }
 
-                val profile = profileDeferred.await()
                 val skills = skillsDeferred.await()
                 val projects = projectsDeferred.await()
-                val education = educationDeferred.await()
                 val contactInfo = contactInfoDeferred.await()
 
                 val socialMediaPlatforms = buildList {
@@ -102,12 +105,10 @@ class PortfolioViewModel(
                 _uiState.update {
                     it.copy(
                         portfolioState = it.portfolioState.copy(
-                            profile = profile ?: it.portfolioState.profile,
                             mediaPlatforms = socialMediaPlatforms,
-                            skills = skills,
+                            skills = skills.toPersistentList(),
                             projects = projects,
-                            education = education,
-                            contactInfo = contactInfo
+                            contactInfo = contactInfo,
                         ),
                         isLoading = false,
                         error = null

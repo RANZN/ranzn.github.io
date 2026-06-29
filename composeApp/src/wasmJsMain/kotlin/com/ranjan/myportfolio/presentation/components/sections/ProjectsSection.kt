@@ -17,10 +17,11 @@ import androidx.compose.ui.unit.sp
 import com.ranjan.myportfolio.data.models.Project
 import com.ranjan.myportfolio.presentation.components.cards.ProjectCard
 import com.ranjan.myportfolio.presentation.design.DesignSystem
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun ProjectsSection(
-    projects: List<Project>,
+    projects: PersistentList<Project>,
     onClick: (String) -> Unit = {},
     isLargeScreen: Boolean
 ) {

@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ranjan.myportfolio.domain.models.ArticlesState
 import com.ranjan.myportfolio.presentation.components.LoadingScreen
 import com.ranjan.myportfolio.presentation.components.cards.ArticleCard
-import com.ranjan.myportfolio.presentation.components.common.SectionTitle
+import com.ranjan.myportfolio.presentation.components.common.SectionTitleBody
 import com.ranjan.myportfolio.presentation.design.DesignSystem
+import com.ranjan.myportfolio.presentation.ui.ArticlesState
 import compose.icons.SimpleIcons
 import compose.icons.simpleicons.Medium
 
@@ -22,7 +22,7 @@ fun ArticlesSection(
     Column(
         verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xl)
     ) {
-        SectionTitle("Articles")
+        SectionTitleBody("Articles")
 
         when (articlesState) {
             is ArticlesState.Error -> {
@@ -33,7 +33,7 @@ fun ArticlesSection(
 
             ArticlesState.Loading -> {
                 Card(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 40.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     elevation = CardDefaults.cardElevation(defaultElevation = DesignSystem.Cards.defaultElevationDp),
                     shape = DesignSystem.Cards.shape,
                     colors = CardDefaults.cardColors(
@@ -41,7 +41,7 @@ fun ArticlesSection(
                         contentColor = MaterialTheme.colorScheme.onSurface
                     )
                 ) {
-                    LoadingScreen()
+                    LoadingScreen(modifier = Modifier.padding(vertical = 40.dp))
                 }
             }
 

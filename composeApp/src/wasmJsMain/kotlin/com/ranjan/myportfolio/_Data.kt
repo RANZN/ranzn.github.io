@@ -117,17 +117,91 @@ object UserData {
 
     val EDUCATION = persistentListOf(
         Education(
-            degree = "Bachelor of Technology - BTech",
+            degree = "Bachelor of Technology - BTech (EEE)",
             institution = "KIIT - Kalinga Institute of Industrial Technology",
             year = "Jan 2017 - Jan 2021",
             description = "Electrical and Electronics Engineering with focus on software development and mobile technologies",
             gpa = "8.02"
         ),
         Education(
-            degree = "Professional Android Development",
-            institution = "Masai School",
-            year = "Apr 2021 - Jan 2022",
-            description = "Advanced Android development with Kotlin Multiplatform and Jetpack Compose in production environment",
+            degree = "Post Graduate Diploma in Computer Applications",
+            institution = "IGNOU",
+            year = "Jun 2025 - Jul 2026",
+            description = "Strengthening computer science fundamentals through coursework in programming, data structures, databases, operating systems, networking, and software engineering to complement professional Android and Kotlin Multiplatform development experience."
         )
+    )
+
+    val EXPERIENCE = persistentListOf(
+        Experience(
+            company = "Evangelist Apps",
+            role = "Senior Android Developer",
+            employmentType = "Full-time",
+            location = "Fleet, London, UK",
+            startDate = "Sept 2024",
+            endDate = "Present",
+            isCurrent = true,
+            description = "Leading Android application development using modern Android architecture while mentoring developers and collaborating with cross-functional teams.",
+            technologies = listOf(
+                "Kotlin",
+                "Jetpack Compose",
+                "Coroutines",
+                "Flow",
+                "Hilt",
+                "Room",
+                "Retrofit",
+                "Firebase"
+            ),
+            highlights = listOf(
+                "Migrated legacy XML screens to Jetpack Compose.",
+                "Implemented offline-first architecture.",
+                "Reduced app startup time by 35%.",
+                "Improved crash-free users to 99.8%.",
+                "Introduced scalable MVI architecture.",
+                "Introduced Widgets and App shortcuts for faster app access."
+            )
+        ),
+        Experience(
+            company = "Perennial Systems",
+            role = "Android Developer",
+            employmentType = "Full-time",
+            location = "Pune, India",
+            startDate = "Feb 2022",
+            endDate = "Aug 2024",
+            isCurrent = false,
+            description = "Developed and maintained Android applications with a focus on performance, clean architecture, and user experience.",
+            technologies = listOf(
+                "Java",
+                "Kotlin",
+                "MVVM",
+                "Navigation",
+                "Paging 3",
+                "WorkManager",
+                "ExoPlayer",
+            ),
+            highlights = listOf(
+                "Developed Fintech SDK",
+                "Integrated REST APIs and push notifications.",
+                "Fintech Application security",
+            )
+        ),
+        Experience(
+            company = "Masai School",
+            role = "Android Developer",
+            employmentType = "Internship",
+            location = "Bangalore, India",
+            startDate = "Apr 2021",
+            endDate = "Jan 2022",
+            isCurrent = false,
+            description = "",
+            technologies = listOf(
+                "Java",
+                "Kotlin",
+                "MVVM",
+                "Retrofit",
+                "ViewModel",
+            ),
+            highlights = listOf()
+        ),
+
     )
 }
