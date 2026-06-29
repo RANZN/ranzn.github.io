@@ -16,7 +16,7 @@ import myportfolio.composeapp.generated.resources.refresh_cw
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "loading")
     val scale by infiniteTransition.animateFloat(
         initialValue = 0.8f,
@@ -29,7 +29,7 @@ fun LoadingScreen() {
     )
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(

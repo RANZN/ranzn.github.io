@@ -33,7 +33,7 @@ fun ArticlesSection(
 
             ArticlesState.Loading -> {
                 Card(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 40.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     elevation = CardDefaults.cardElevation(defaultElevation = DesignSystem.Cards.defaultElevationDp),
                     shape = DesignSystem.Cards.shape,
                     colors = CardDefaults.cardColors(
@@ -41,7 +41,7 @@ fun ArticlesSection(
                         contentColor = MaterialTheme.colorScheme.onSurface
                     )
                 ) {
-                    LoadingScreen()
+                    LoadingScreen(modifier = Modifier.padding(vertical = 40.dp))
                 }
             }
 
