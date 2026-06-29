@@ -2,6 +2,7 @@ package com.ranjan.myportfolio
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +18,7 @@ import com.ranjan.myportfolio.presentation.design.DesignSystem
 import com.ranjan.myportfolio.presentation.theme.PortfolioDarkColorScheme
 import com.ranjan.myportfolio.presentation.theme.PortfolioLightColorScheme
 import com.ranjan.myportfolio.presentation.ui.*
+import com.ranjan.myportfolio.presentation.util.forwardScrollTo
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.koin.compose.viewmodel.koinViewModel
@@ -25,27 +27,18 @@ import org.koin.compose.viewmodel.koinViewModel
 fun App() {
     val viewModel: PortfolioViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
-
     val portfolioState = uiState.portfolioState
 
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                is UiEvent.OpenUrl -> {
-                    window.open(event.url, "_blank")
-                }
+                is UiEvent.OpenUrl -> window.open(event.url, "_blank")
             }
         }
     }
 
-    LaunchedEffect(portfolioState.profile.name, uiState.selectedSection) {
+    LaunchedEffect(portfolioState.profile.name) {
         document.title = "${portfolioState.profile.name} | Portfolio"
-    }
-
-    LaunchedEffect(uiState.selectedSection) {
-        if (window.location.hash != "#${uiState.selectedSection.title}") {
-            window.history.replaceState(null, "", "#${uiState.selectedSection.title}")
-        }
     }
 
     MaterialTheme(
@@ -56,34 +49,32 @@ fun App() {
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            AnimatedBackground(
-                modifier = Modifier.fillMaxSize()
-            )
+            AnimatedBackground(modifier = Modifier.fillMaxSize())
 
             val isLargeScreen = maxWidth > 1200.dp
-            val isMediumScreen = maxWidth > 800.dp
 
             when {
-                uiState.isLoading -> {
-                    LoadingScreen()
-                }
-
-                uiState.error != null -> {
-                    ErrorScreen(
-                        error = uiState.error!!,
-                        onRetry = { viewModel.handleIntent(PortfolioIntent.RefreshData) },
-                        onDismiss = { viewModel.handleIntent(PortfolioIntent.ClearError) }
-                    )
-                }
+                uiState.isLoading -> LoadingScreen()
+                uiState.error != null -> ErrorScreen(
+                    error = uiState.error!!,
+                    onRetry = { viewModel.handleIntent(PortfolioIntent.RefreshData) },
+                    onDismiss = { viewModel.handleIntent(PortfolioIntent.ClearError) }
+                )
 
                 else -> {
                     if (isLargeScreen) {
-                        Row(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalArrangement = Arrangement.Center
+                        val sharedScrollState = rememberLazyListState()
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .forwardScrollTo(sharedScrollState),
+                            contentAlignment = Alignment.Center
                         ) {
                             Row(
-                                modifier = Modifier.widthIn(max = DesignSystem.Layout.contentMaxWidth).fillMaxHeight(),
+                                modifier = Modifier
+                                    .widthIn(max = DesignSystem.Layout.contentMaxWidth)
+                                    .fillMaxHeight(),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 ProfileUi(
@@ -94,36 +85,20 @@ fun App() {
                                 )
                                 MainContent(
                                     portfolioState = portfolioState,
-                                    navigationSections = uiState.navigationSections,
-                                    selectedSection = { uiState.selectedSection },
-                                    onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
                                     onClick = { viewModel.launchUrl(it) },
                                     modifier = Modifier.weight(1f),
-                                    isLargeScreen = isLargeScreen
+                                    isLargeScreen = isLargeScreen,
+                                    scrollState = sharedScrollState,
                                 )
                             }
                         }
                     } else {
-                        Column(modifier = Modifier.fillMaxSize()) {
-                          /*  TopNavigationBar(
-                                navigationSections = uiState.navigationSections,
-                                selectedSection = { uiState.selectedSection },
-                                onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
-                                isCompact = !isMediumScreen,
-                                isDarkMode = uiState.isDarkMode,
-                                onToggleDarkMode = { viewModel.handleIntent(PortfolioIntent.ToggleDarkMode) }
-                            )
-*/
-                            MainContent(
-                                portfolioState = portfolioState,
-                                navigationSections = uiState.navigationSections,
-                                selectedSection = { uiState.selectedSection },
-                                onSectionSelected = { viewModel.handleIntent(PortfolioIntent.SelectSection(it)) },
-                                onClick = { viewModel.launchUrl(it) },
-                                modifier = Modifier.weight(1f),
-                                isLargeScreen = isLargeScreen
-                            )
-                        }
+                        MainContent(
+                            portfolioState = portfolioState,
+                            onClick = { viewModel.launchUrl(it) },
+                            modifier = Modifier.fillMaxSize(),
+                            isLargeScreen = isLargeScreen
+                        )
                     }
                 }
             }

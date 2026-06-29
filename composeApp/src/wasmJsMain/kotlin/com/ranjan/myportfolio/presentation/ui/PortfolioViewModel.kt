@@ -2,7 +2,6 @@ package com.ranjan.myportfolio.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ranjan.myportfolio.data.models.NavigationSection
 import com.ranjan.myportfolio.domain.models.ArticlesState
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
 import com.ranjan.myportfolio.navigation.NavigationManager
@@ -33,7 +32,6 @@ class PortfolioViewModel(
     val events: SharedFlow<UiEvent> = _events.asSharedFlow()
 
     init {
-        initializeNavigation()
         handleIntent(PortfolioIntent.LoadPortfolioData)
     }
 
@@ -48,17 +46,6 @@ class PortfolioViewModel(
             is PortfolioIntent.RefreshData -> refreshData()
             is PortfolioIntent.ClearError -> clearError()
             is PortfolioIntent.ToggleDarkMode -> toggleDarkMode()
-            is PortfolioIntent.SelectSection -> selectSection(intent.section)
-            is PortfolioIntent.ToggleNavigationCollapse -> toggleNavigationCollapse(intent.isCollapsed)
-        }
-    }
-
-    private fun initializeNavigation() {
-        val initialSection = navigationManager.getCurrentSection()
-        _uiState.update { it.copy(selectedSection = initialSection) }
-
-        navigationManager.setupNavigationListener { section ->
-            _uiState.update { it.copy(selectedSection = section) }
         }
     }
 
@@ -87,15 +74,13 @@ class PortfolioViewModel(
                             url = contactInfo.linkedin
                         )
                     )
-                    contactInfo.medium?.let { mediumUrl ->
-                        add(
-                            SocialMediaPlatform(
-                                icon = SimpleIcons.Medium,
-                                label = "Medium",
-                                url = mediumUrl
-                            )
+                    add(
+                        SocialMediaPlatform(
+                            icon = SimpleIcons.Medium,
+                            label = "Medium",
+                            url = contactInfo.medium
                         )
-                    }
+                    )
                     contactInfo.twitter?.let { twitterUrl ->
                         add(
                             SocialMediaPlatform(
@@ -165,23 +150,8 @@ class PortfolioViewModel(
         }
     }
 
-    private fun selectSection(section: NavigationSection) {
-        _uiState.update { currentState ->
-            if (currentState.selectedSection != section) {
-                navigationManager.updateUrl(section)
-                currentState.copy(selectedSection = section)
-            } else {
-                currentState
-            }
-        }
-    }
-
     private fun toggleDarkMode() {
         _uiState.update { it.copy(isDarkMode = !it.isDarkMode) }
-    }
-
-    private fun toggleNavigationCollapse(isCollapsed: Boolean) {
-        _uiState.update { it.copy(isNavigationCollapsed = isCollapsed) }
     }
 
     private fun refreshData() {
