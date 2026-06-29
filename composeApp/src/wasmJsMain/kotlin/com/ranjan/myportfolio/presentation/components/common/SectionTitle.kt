@@ -1,38 +1,54 @@
 package com.ranjan.myportfolio.presentation.components.common
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.ranjan.myportfolio.presentation.design.DesignSystem
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun SectionTitle(
-    title: String,
+    line1: String,
+    line2: String? = null,
+    icon: ImageVector? = null,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.md)
+        modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start
     ) {
-        Surface(
-            shape = DesignSystem.Cards.shape,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(4.dp, 32.dp)
-        ) {}
-        
+        icon?.let {
+            Icon(imageVector = icon, contentDescription = line2)
+        }
         Text(
-            text = title,
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.fillMaxWidth()
+            text = buildAnnotatedString {
+                withStyle(
+                    SpanStyle(
+                        color = Color.White,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 94.sp,
+                    )
+                ) {
+                    append(line1)
+                }
+                line2?.let { line2 ->
+                    appendLine()
+                    withStyle(SpanStyle(color = Color.Gray, fontWeight = FontWeight.Black, fontSize = 90.sp)) {
+                        append(line2)
+                    }
+                }
+            },
+            style = MaterialTheme.typography.displayLarge,
+            lineHeight = 90.sp
         )
     }
 }

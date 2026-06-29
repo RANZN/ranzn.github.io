@@ -3,12 +3,13 @@ package com.ranjan.myportfolio.data.repository
 import com.ranjan.myportfolio.UserData
 import com.ranjan.myportfolio.data.models.*
 import com.ranjan.myportfolio.domain.repository.PortfolioRepository
+import kotlinx.collections.immutable.PersistentList
 
 class PortfolioRepositoryImpl(
     private val articlesRepository: ArticlesRepository
 ) : PortfolioRepository {
 
-    override suspend fun getProfile(): Profile {
+    override fun getProfile(): Profile {
         return Profile(
             name = UserData.NAME,
             title = UserData.JOB_TITLE,
@@ -29,7 +30,7 @@ class PortfolioRepositoryImpl(
         UserData.AI_TOOLS,
     ).flatten()
 
-    override suspend fun getProjects(): List<Project> {
+    override suspend fun getProjects(): PersistentList<Project> {
         return UserData.PROJECTS
     }
 
@@ -39,11 +40,11 @@ class PortfolioRepositoryImpl(
         print("Error fetching articles: ${it.message}")
     }.getOrElse { Result.failure(Exception("Unknown error")) }
 
-    override suspend fun getEducation(): List<Education> {
+    override fun getEducation(): PersistentList<Education> {
         return UserData.EDUCATION
     }
 
-    override suspend fun getContactInfo(): ContactInfo {
+    override fun getContactInfo(): ContactInfo {
         return ContactInfo(
             email = UserData.EMAIL,
             linkedin = UserData.LINKEDIN_LINK,
@@ -53,7 +54,9 @@ class PortfolioRepositoryImpl(
         )
     }
 
-    override suspend fun getNavigationSections(): List<NavigationSection> {
+    override fun getNavigationSections(): List<NavigationSection> {
         return NavigationSection.entries
     }
+
+    override fun getExperience(): PersistentList<Experience> = UserData.EXPERIENCE
 }

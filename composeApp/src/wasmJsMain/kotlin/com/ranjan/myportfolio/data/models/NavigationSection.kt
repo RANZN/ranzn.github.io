@@ -9,6 +9,7 @@ enum class NavigationSection(
 ) {
     ABOUT("About", Res.drawable.user),
     SKILLS("Skills", Res.drawable.star),
+    EXPERIENCE("Experience", Res.drawable.briefcase),
     PROJECTS("Projects", Res.drawable.briefcase),
     ARTICLES("Articles", Res.drawable.file_text),
     EDUCATION("Education", Res.drawable.book_open),

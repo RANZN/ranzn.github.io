@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ranjan.myportfolio.data.models.FeaturedItem
-import com.ranjan.myportfolio.presentation.components.common.SectionTitle
+import com.ranjan.myportfolio.presentation.components.common.SectionTitleBody
 import com.ranjan.myportfolio.presentation.design.DesignSystem
 import org.jetbrains.compose.resources.painterResource
 
@@ -25,7 +25,7 @@ fun ToolsSection(
     Column(
         verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.xl)
     ) {
-        SectionTitle(title)
+        SectionTitleBody(title)
 
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
