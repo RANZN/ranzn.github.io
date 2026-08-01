@@ -1,8 +1,6 @@
 package com.ranjan.myportfolio.presentation.components.cards
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,10 +65,10 @@ fun ProjectCard(
 
             Spacer(modifier = Modifier.height(DesignSystem.Spacing.lg))
 
-            LazyRow(
+            FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.sm)
             ) {
-                items(project.technologies) { tech ->
+                project.technologies.forEach { tech ->
                     FilterChip(
                         selected = false,
                         onClick = { },

@@ -86,6 +86,62 @@ object UserData {
 
     val PROJECTS = persistentListOf(
         Project(
+            title = "Third Bridge",
+            description = "Research and expert-network platform connecting investors and business leaders with industry experts to deliver actionable insights. Migrated the app to Jetpack Compose.",
+            technologies = listOf("Kotlin", "Android", "Jetpack Compose", "MVVM", "Coroutines", "Flow"),
+            link = "https://play.google.com/store/apps/details?id=com.thirdbridge.forum",
+            imageUrl = null,
+        ),
+        Project(
+            title = "GCash",
+            description = "Mobile wallet app from Globe Fintech Innovations enabling bill payments, mobile top-ups, and money transfers for Filipino users.",
+            technologies = listOf("Java", "Kotlin", "Android", "MVVM", "REST APIs"),
+            link = "https://play.google.com/store/apps/details?id=com.globe.gcash.android",
+            imageUrl = null,
+        ),
+        Project(
+            title = "NIUM Pay",
+            description = "Cross-border payments app for corporate and retail card issuance and management. Built card blocking, virtual card generation, and QR-based online/offline payments, and integrated the Google Pay SDK for tap-to-pay provisioning.",
+            technologies = listOf("Kotlin", "Android", "Google Pay SDK", "MVVM", "REST APIs"),
+            link = "",
+            imageUrl = null,
+        ),
+        Project(
+            title = "NIUM Push SDK",
+            description = "SDK enabling partner applications to provision issued cards directly into Google Pay. Integrated and tested SDK APIs consumed by multiple partner apps in production and resolved bugs from internal and third-party security research.",
+            technologies = listOf("Kotlin", "Android SDK", "Google Pay", "Tokenization"),
+            link = "https://docs.nium.com/docs/cards/digital-wallet-tokenization/google-pay",
+            imageUrl = null,
+        ),
+        Project(
+            title = "HLF FASTPAY",
+            description = "Digital payments solution supporting local and international fund transfers, card services, and e-KYC onboarding.",
+            technologies = listOf("Kotlin", "Android", "MVVM", "REST APIs", "e-KYC"),
+            link = "",
+            imageUrl = null,
+        ),
+        Project(
+            title = "RingerX",
+            description = "Xposed module for scheduling ringer profiles, hooking into system behaviour to automate ringer state changes. Demonstrates hands-on experience with the Xposed framework and Android internals.",
+            technologies = listOf("Kotlin", "Android", "Xposed", "System Hooks"),
+            link = "",
+            imageUrl = null,
+        ),
+        Project(
+            title = "Somiq - Cross-Platform Chat App",
+            description = "Personal project exploring Kotlin Multiplatform: a chat app sharing UI and business logic across Android, iOS, and Desktop from a single codebase, backed by a custom Ktor server for message routing and session handling.",
+            technologies = listOf("Kotlin Multiplatform", "Compose Multiplatform", "Ktor", "Coroutines", "Flow"),
+            link = "https://github.com/RANZN/Somiq",
+            imageUrl = null,
+        ),
+        Project(
+            title = "Adoro - Social Media App",
+            description = "A social app with a feed featuring like, comment, and share, real-time group chat with push notifications, local meme-template storage for quick reuse, and a referral system rewarding users with in-app credits.",
+            technologies = listOf("Kotlin", "Android", "Firebase", "Real-time", "Push Notifications", "Jetpack Compose"),
+            link = "",
+            imageUrl = null,
+        ),
+        Project(
             title = "MyPortfolio",
             description = "Personal portfolio website built with Kotlin Multiplatform and Compose for Web, showcasing modern cross-platform development",
             technologies = listOf("Kotlin Multiplatform", "Compose Multiplatform", "WASM", "Web"),
@@ -97,20 +153,6 @@ object UserData {
             description = "Personal finance management app with expense tracking and budget management using modern Android architecture",
             technologies = listOf("Kotlin", "Android", "Room", "MVVM", "Material Design", "Jetpack Compose"),
             link = "https://github.com/RANZN/SmartCents",
-            imageUrl = null,
-        ),
-        Project(
-            title = "Forum Mobile Android",
-            description = "Mobile forum application with real-time messaging and community features built with modern Android stack",
-            technologies = listOf("Kotlin", "Android", "Firebase", "Material Design", "Real-time", "Jetpack Compose"),
-            link = "https://github.com/RANZN/forum-mobile-android",
-            imageUrl = null,
-        ),
-        Project(
-            title = "Evangelist Apps Projects",
-            description = "Professional Android applications developed at Evangelist Apps using cutting-edge technologies",
-            technologies = listOf("Kotlin", "Android", "Kotlin Multiplatform", "Jetpack Compose"),
-            link = "https://github.com/RANZN",
             imageUrl = null,
         )
     )
